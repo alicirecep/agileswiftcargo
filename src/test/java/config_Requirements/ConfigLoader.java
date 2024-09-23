@@ -18,7 +18,7 @@ public class ConfigLoader {
         InputStream inputStream = null;
 
         try {
-            inputStream = new FileInputStream(new File("src/test/resources/config/config1.yaml"));
+            inputStream = new FileInputStream(new File("src/test/resources/config/config.yaml"));
             config = yaml.load(inputStream);
         } catch (IOException e) {
             throw new RuntimeException("config.yaml dosyası okunamadı.", e);

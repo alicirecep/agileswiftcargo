@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="9.214">
+    <testcase classname="As an administrator (admin) I want to be able to access Hub List via API connection." name="admin Send a GET request to the api/hub/list endpoint with valid authorization, verify that the" time="8.808">
+        <system-out><![CDATA[* The api user sets "api/hub/list" path parameters..........................passed
+* The api user sends a "GET" request and saves the returned response........passed
+* The api user verifies that the status code is 200.........................passed
+* The api user verifies that the "message" information in the response body is "Success"..passed
+]]></system-out>
+    </testcase>
+</testsuite>
