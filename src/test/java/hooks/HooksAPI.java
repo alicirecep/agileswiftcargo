@@ -22,7 +22,7 @@ public class HooksAPI extends BaseTest {
             token = configLoader.getApiConfig("invalidToken"); // Geçersiz token al
             setupApiCompleted = true;
         } else {
-            if (scenario.getName().contains("admin") || scenario.getName().contains("merchant") || scenario.getName().contains("deliveryman")) {
+            if (scenario.getName().contains("admin") || scenario.getName().contains("merchant")) {
                 token = Authentication.generateToken(scenario.getName().split(" ")[0]);
             }
         }
