@@ -30,12 +30,6 @@ public class Authentication extends BaseTest {
                 reqBody.put("email", excelData.getCellData(2, 0));
                 reqBody.put("password", excelData.getCellData(2, 1));
                 break;
-            case "deliveryman":
-                spec.pathParams("pp1", "api", "pp2", "gettoken");
-                reqBody = new JSONObject();
-                reqBody.put("email", excelData.getCellData(3, 0));
-                reqBody.put("password", excelData.getCellData(3, 1));
-                break;
         }
 
         Response response = given()

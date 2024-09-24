@@ -9,21 +9,20 @@ public class TestData {
 
     Faker faker = new Faker();
 
-    public HashMap blogRequestBody() {
+    public HashMap hubRequestBody() {
 
         HashMap<String, Object> requestBody = new HashMap<>();
 
-        requestBody.put("title", "New Blog");
-        requestBody.put("category_id", 1);
-        requestBody.put("summary", "Blog Summary.");
-        requestBody.put("content", "Blog Content");
+        requestBody.put("name", "Test Hub");
+        requestBody.put("phone", "01000000004");
+        requestBody.put("address", "Houston, Texas");
 
         return requestBody;
     }
 
     public HashMap requestBody(String folder) {
 
-        reqBody.put("blog", blogRequestBody());
+        reqBody.put("hub", hubRequestBody());
 
         return reqBody.get(folder);
     }
