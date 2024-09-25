@@ -10,6 +10,8 @@ import io.restassured.response.Response;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static hooks.HooksAPI.spec;
 import static io.restassured.RestAssured.given;
@@ -152,18 +154,23 @@ public class API_Methods extends BaseTest {
                 .body(path, equalTo(value));
     }
 
-    public static void assertPathParam(String reponseId) {
-        repJP = response.jsonPath();
-        String idValue = repJP.getString(reponseId);
+    public static void assertPathParam(String dataKey, String responseIdKey) {
+        map = response.as(HashMap.class);
 
-        int data_id = Integer.parseInt(idValue);
+        Object data = map.get(dataKey);  // "data" alanını elde ediyoruz
 
-        assertEquals(API_Methods.id, data_id);
-    }
+        Object idValue = null;
 
-    public static void verification(String pp1, String pp2, String idKey, String path, Object value) {
-        repJP = response.jsonPath();
-        Object idValue = repJP.get(idKey);
+        if (data instanceof List) {
+            // Eğer "data" bir dizi ise
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
+            idValue = dataList.get(0).get(responseIdKey);
+
+        } else if (data instanceof Map) {
+            // Eğer "data" bir obje ise
+            Map<String, Object> dataMap = (Map<String, Object>) data;
+            idValue = dataMap.get(responseIdKey);
+        }
 
         int id = 0;
         if (idValue instanceof String) {
@@ -171,7 +178,35 @@ public class API_Methods extends BaseTest {
         } else {
             id = (int) idValue;
         }
-        System.out.println(idKey + " : " + id);
+
+        assertEquals(API_Methods.id, id);
+    }
+
+    public static void verification(String pp1, String pp2, String dataKey, String responseIdKey, String path, Object value) {
+        map = response.as(HashMap.class);
+
+        Object data = map.get(dataKey);  // "data" alanını elde ediyoruz
+
+        Object idValue = null;
+
+        if (data instanceof List) {
+            // Eğer "data" bir dizi ise
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
+            idValue = dataList.get(0).get(responseIdKey);
+
+        } else if (data instanceof Map) {
+            // Eğer "data" bir obje ise
+            Map<String, Object> dataMap = (Map<String, Object>) data;
+            idValue = dataMap.get(responseIdKey);
+        }
+
+        int id = 0;
+        if (idValue instanceof String) {
+            id = Integer.parseInt((String) idValue);
+        } else {
+            id = (int) idValue;
+        }
+        System.out.println(responseIdKey + " : " + id);
 
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
         spec.pathParams("pp1", pp1, "pp2", pp2, "pp3", id);
@@ -180,7 +215,7 @@ public class API_Methods extends BaseTest {
         response = given()
                 .spec(spec)
                 .header("Accept", "application/json")
-                .header("token", Authentication.generateToken("admin"))
+                .header("Authorization", "Bearer " + Authentication.generateToken("admin"))
                 .when()
                 .get("/{pp1}/{pp2}/{pp3}");
 
@@ -189,11 +224,10 @@ public class API_Methods extends BaseTest {
                 .body(path, equalTo(value));
     }
 
-    public static int addedId(String pp2, String folder, String idKey) {
+    public static int addedId(String pp2, String pp3, String folder, String idKey) {
 
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
-        spec.pathParams("pp1", "api", "pp2", pp2);
-        TestData testData = new TestData();
+        spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3);
 
         HashMap<String, Object> requestBody = testData.requestBody(folder);
 
@@ -201,14 +235,15 @@ public class API_Methods extends BaseTest {
                 .spec(spec)
                 .contentType(ContentType.JSON)
                 .header("Accept", "application/json")
-                .header("token", Authentication.generateToken("admin"))
+                .header("Authorization", "Bearer " + Authentication.generateToken("admin"))
                 .when()
                 .body(requestBody)
-                .post("/{pp1}/{pp2}");
+                .post("/{pp1}/{pp2}/{pp3}");
 
-        JsonPath repJP = response.jsonPath();
+        map = response.as(HashMap.class);
 
-        int id = repJP.getInt(idKey);
+        int id = (int) ((Map) (map.get("data"))).get(idKey);
+
 
         System.out.println(idKey + " : " + id);
 
@@ -223,17 +258,19 @@ public class API_Methods extends BaseTest {
             String scenarioName = scenario.getName();
 
             String pp2 = null;
+            String pp3 = null;
             String folder = null;
             String idKey = null;
 
-            if (scenarioName.contains("BLOG")) {
-                pp2 = "addBlog";
-                folder = "blog";
-                idKey = "data.added_blog_id";
+            if (scenarioName.contains("HUB")) {
+                pp2 = "hub";
+                pp3 = "add";
+                folder = "hub";
+                idKey = "New Hub ID";
             }
 
             // ID oluşturma
-            addedId = API_Methods.addedId(pp2, folder, idKey);
+            addedId = API_Methods.addedId(pp2, pp3, folder, idKey);
         }
     }
 
