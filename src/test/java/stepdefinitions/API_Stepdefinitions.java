@@ -4,7 +4,6 @@ import base.BaseTest;
 import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
 import utilities.API_Utilities.API_Methods;
-import utilities.API_Utilities.RequestBuilder;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
@@ -12,7 +11,6 @@ import static org.junit.Assert.*;
 public class API_Stepdefinitions extends BaseTest {
 
     Gson gson = new Gson(); // Gson kütüphanesini kullanarak bir POJO nesnesini JSON formatında bir Stringe dönüştürebilirsiniz.
-    RequestBuilder builder = new RequestBuilder();
     String requestBody;
 
     @Given("The api user sets {string} path parameters.")
@@ -65,7 +63,6 @@ public class API_Stepdefinitions extends BaseTest {
     }
 
     // ************************************************ api/hub/list ******************************************************
-
     @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {string}, {string}, {string}, {string}, {int}, {string} and {string}.")
     public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, String name, String phone, String address, String current_balance, int status, String created_at, String updated_at) {
         repJP = response.jsonPath();
