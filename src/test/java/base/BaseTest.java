@@ -9,6 +9,8 @@ import utilities.API_Utilities.TestData;
 
 import java.util.HashMap;
 
+import java.util.HashMap;
+
 public abstract class BaseTest {
 
     protected static ConfigLoader configLoader;
@@ -16,6 +18,7 @@ public abstract class BaseTest {
 
     protected static JsonPath repJP;
     protected static Response response;
+    protected static HashMap map;
 
     protected static TestData testData;
 

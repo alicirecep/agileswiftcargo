@@ -173,15 +173,16 @@ public class API_Methods extends BaseTest {
         }
 
         int id = 0;
+        
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
-            id = (int) idValue;
+            id = (Integer) idValue;
         }
 
         assertEquals(API_Methods.id, id);
     }
-
+ 
     public static void verification(String pp1, String pp2, String dataKey, String responseIdKey, String path, Object value) {
         map = response.as(HashMap.class);
 
@@ -192,7 +193,7 @@ public class API_Methods extends BaseTest {
         if (data instanceof List) {
             // Eğer "data" bir dizi ise
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
-            idValue = dataList.get(0).get(responseIdKey);
+            idValue = dataList.get(0).get();
 
         } else if (data instanceof Map) {
             // Eğer "data" bir obje ise
@@ -201,10 +202,11 @@ public class API_Methods extends BaseTest {
         }
 
         int id = 0;
+
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
-            id = (int) idValue;
+            id = (Integer) idValue;
         }
         System.out.println(responseIdKey + " : " + id);
 
@@ -229,6 +231,8 @@ public class API_Methods extends BaseTest {
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
         spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3);
 
+        TestData testData = new TestData();
+
         HashMap<String, Object> requestBody = testData.requestBody(folder);
 
         response = given()
@@ -241,7 +245,6 @@ public class API_Methods extends BaseTest {
                 .post("/{pp1}/{pp2}/{pp3}");
 
         map = response.as(HashMap.class);
-
         int id = (int) ((Map) (map.get("data"))).get(idKey);
 
 
