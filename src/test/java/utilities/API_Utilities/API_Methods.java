@@ -201,10 +201,11 @@ public class API_Methods extends BaseTest {
         }
 
         int id = 0;
+
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
-            id = (int) idValue;
+            id = (Integer) idValue;
         }
         System.out.println(responseIdKey + " : " + id);
 

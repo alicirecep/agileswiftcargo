@@ -22,6 +22,9 @@ Feature: As an administrator (admin) I want to be able to access Hub List via AP
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 03f44db44f7d5bfeb722b5c6d41f203057ee4fa8
   Scenario: Invalid Token Send a GET request to the api/hub/list endpoint with invalid authorization, verify that the response
   status code is 401 and the message in the response body is 'Unauthenticated.'
 
@@ -29,5 +32,9 @@ Feature: As an administrator (admin) I want to be able to access Hub List via AP
     # Api kullanicisi "api/hub/list" path parametrelerini olusturur
     * The api user sends a "GET" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
     # Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
+<<<<<<< HEAD
 =======
 >>>>>>> 443bf2bef0173de9322f7e13a242249b312f6dc3
+=======
+
+>>>>>>> 03f44db44f7d5bfeb722b5c6d41f203057ee4fa8

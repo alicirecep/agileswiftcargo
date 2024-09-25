@@ -25,6 +25,9 @@ public abstract class BaseTest {
     protected JSONObject requestBody;
 
     public BaseTest() {
+        requestBody = new JSONObject();
+        map = new HashMap<>();
+        testData = new TestData();
         configLoader = new ConfigLoader();
         excelData = new ExcelDataReader("src/test/resources/testData/testData.xlsx", "Data");
     }
