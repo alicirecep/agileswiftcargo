@@ -1,12 +1,9 @@
 package utilities.API_Utilities;
 
-import com.github.javafaker.Faker;
-
 import java.util.HashMap;
 
 public class TestData {
     HashMap<String, HashMap<String, Object>> reqBody = new HashMap<>();
-
     Faker faker = new Faker();
 
     public HashMap hubRequestBody() {

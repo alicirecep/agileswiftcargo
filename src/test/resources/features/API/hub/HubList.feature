@@ -28,3 +28,4 @@ Feature: As an administrator (admin) I want to be able to access Hub List via AP
     # Api kullanicisi "api/hub/list" path parametrelerini olusturur
     * The api user sends a "GET" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
     # Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
+

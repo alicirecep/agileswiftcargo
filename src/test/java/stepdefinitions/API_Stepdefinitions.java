@@ -54,6 +54,7 @@ public class API_Stepdefinitions extends BaseTest {
         API_Methods.verification(pp1, pp2, data, reponseId, path, value);
     }
 
+    // ************************************************ /api/hub/list ******************************************************
     @Given("The api user prepares a {string} request that contains no data.")
     public void the_api_user_prepares_a_request_that_contains_no_data(String httpMethod) {
         requestBody = builder.buildUsingJSONObject();
