@@ -5,7 +5,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import java.util.Arrays;
@@ -173,7 +172,6 @@ public class API_Methods extends BaseTest {
         }
 
         int id = 0;
-        
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
@@ -182,7 +180,7 @@ public class API_Methods extends BaseTest {
 
         assertEquals(API_Methods.id, id);
     }
- 
+
     public static void verification(String pp1, String pp2, String dataKey, String responseIdKey, String path, Object value) {
         map = response.as(HashMap.class);
 
@@ -193,7 +191,7 @@ public class API_Methods extends BaseTest {
         if (data instanceof List) {
             // Eğer "data" bir dizi ise
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
-            idValue = dataList.get(0).get();
+            idValue = dataList.get(0).get(responseIdKey);
 
         } else if (data instanceof Map) {
             // Eğer "data" bir obje ise
@@ -231,8 +229,6 @@ public class API_Methods extends BaseTest {
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
         spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3);
 
-        TestData testData = new TestData();
-
         HashMap<String, Object> requestBody = testData.requestBody(folder);
 
         response = given()
@@ -245,6 +241,7 @@ public class API_Methods extends BaseTest {
                 .post("/{pp1}/{pp2}/{pp3}");
 
         map = response.as(HashMap.class);
+
         int id = (int) ((Map) (map.get("data"))).get(idKey);
 
 

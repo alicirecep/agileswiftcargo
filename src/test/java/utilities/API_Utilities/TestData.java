@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class TestData {
     HashMap<String, HashMap<String, Object>> reqBody = new HashMap<>();
-    Faker faker = new Faker();
 
     public HashMap hubRequestBody() {
 
