@@ -11,7 +11,6 @@ import base.BaseTest;
 public class HooksAPI extends BaseTest {
     public static RequestSpecification spec;
 
-    public static boolean setupApiCompleted = false;
 
     @Before(order = 2)
     public void setUpScenario(Scenario scenario) {
@@ -20,7 +19,7 @@ public class HooksAPI extends BaseTest {
         // Senaryonun adına göre belirleniyor
         if (scenario.getName().contains("Invalid Token")) {
             token = configLoader.getApiConfig("invalidToken"); // Geçersiz token al
-            setupApiCompleted = true;
+
         } else {
             if (scenario.getName().contains("admin") || scenario.getName().contains("merchant")) {
                 token = Authentication.generateToken(scenario.getName().split(" ")[0]);
@@ -32,8 +31,6 @@ public class HooksAPI extends BaseTest {
                 .addHeader("Accept", "application/json")
                 .addHeader("Authorization", "Bearer " + token)
                 .build();
-
-        setupApiCompleted = true;
     }
 
     @After

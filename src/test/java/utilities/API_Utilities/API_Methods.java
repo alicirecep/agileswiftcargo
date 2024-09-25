@@ -157,15 +157,14 @@ public class API_Methods extends BaseTest {
     public static void assertPathParam(String dataKey, String responseIdKey) {
         map = response.as(HashMap.class);
 
-        int id = 0;
-        Object idValue = null;
         Object data = map.get(dataKey);  // "data" alanını elde ediyoruz
+
+        Object idValue = null;
 
         if (data instanceof List) {
             // Eğer "data" bir dizi ise
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
             idValue = dataList.get(0).get(responseIdKey);
-
 
         } else if (data instanceof Map) {
             // Eğer "data" bir obje ise
@@ -173,6 +172,7 @@ public class API_Methods extends BaseTest {
             idValue = dataMap.get(responseIdKey);
         }
 
+        int id = 0;
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
@@ -182,7 +182,7 @@ public class API_Methods extends BaseTest {
         assertEquals(API_Methods.id, id);
     }
 
-    public static void verification(String pp1, String pp2, String dataKey, String idKey, String path, Object value) {
+    public static void verification(String pp1, String pp2, String dataKey, String responseIdKey, String path, Object value) {
         map = response.as(HashMap.class);
 
         Object data = map.get(dataKey);  // "data" alanını elde ediyoruz
@@ -192,22 +192,21 @@ public class API_Methods extends BaseTest {
         if (data instanceof List) {
             // Eğer "data" bir dizi ise
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) data;
-            idValue = dataList.get(0).get(idKey);
+            idValue = dataList.get(0).get(responseIdKey);
 
         } else if (data instanceof Map) {
             // Eğer "data" bir obje ise
             Map<String, Object> dataMap = (Map<String, Object>) data;
-            idValue = dataMap.get(idKey);
+            idValue = dataMap.get(responseIdKey);
         }
 
         int id = 0;
-
         if (idValue instanceof String) {
             id = Integer.parseInt((String) idValue);
         } else {
-            id = (Integer) idValue;
+            id = (int) idValue;
         }
-        System.out.println(idKey + " : " + id);
+        System.out.println(responseIdKey + " : " + id);
 
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
         spec.pathParams("pp1", pp1, "pp2", pp2, "pp3", id);
@@ -243,7 +242,9 @@ public class API_Methods extends BaseTest {
                 .post("/{pp1}/{pp2}/{pp3}");
 
         map = response.as(HashMap.class);
+
         int id = (int) ((Map) (map.get("data"))).get(idKey);
+
 
         System.out.println(idKey + " : " + id);
 
