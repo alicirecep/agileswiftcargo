@@ -1,6 +1,7 @@
 api:
   base_url: "https://qa.agileswiftcargo.com/"
   unauthorizedExceptionMessage: "status code: 401, reason phrase: Unauthorized"
+  badRequestExceptionMessage: "status code: 400, reason phrase: Bad Request"
   invalidToken: "invalid"
 
 database:

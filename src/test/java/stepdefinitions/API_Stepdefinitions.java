@@ -62,6 +62,11 @@ public class API_Stepdefinitions extends BaseTest {
         API_Methods.assertPathParam(data, reponseId);
     }
 
+    @Given("The api user sends a {string} request, saves the returned response, and verifies that the status code is '400' with the reason phrase Bad Request.")
+    public void the_api_user_sends_a_request_saves_the_returned_response_and_verifies_that_the_status_code_is_with_the_reason_phrase_bad_request(String httpMethod) {
+        assertEquals(configLoader.getApiConfig("badRequestExceptionMessage"), API_Methods.tryCatchRequest(httpMethod, requestBody));
+    }
+
     // ************************************************ api/hub/list ******************************************************
     @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {string}, {string}, {string}, {string}, {int}, {string} and {string}.")
     public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, String name, String phone, String address, String current_balance, int status, String created_at, String updated_at) {
@@ -135,6 +140,15 @@ public class API_Stepdefinitions extends BaseTest {
                 .buildUsingJSONObject();
 
         System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ************************************************ api/parcel/list ***************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {int}, {string}, {string}, {string}, {string}, {string}, {string}, {int}, {int}, {int}, {int}, {int}, {int} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int merchant_id, int merchant_shop_id, String pickup_address, String pickup_phone, String customer_name, String customer_phone, String customer_address, String invoice_no, int category_id, int weight, int delivery_type_id, int first_hub_id, int hub_id, int transfer_hub_id, String cash_collection) {
+        repJP = response.jsonPath();
+
+        //assertEquals(name, repJP.getString("data[" + dataIndex + "].name"));
     }
     // ********************************************************************************************************************
 }

@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="10.428">
-    <testcase classname="As an administrator (admin), I want to be able to delete hub information with the specified id number via API connection." name="admin HUB Send a DELETE request to the api/hub/delete/{id} endpoint with valid authorization and correct id, verify" time="9.969">
-        <system-out><![CDATA[* The api user sets "api/hub/delete" path parameters........................passed
-* The api user sends a "DELETE" request and saves the returned response.....passed
-* The api user verifies that the status code is 200.........................passed
-* The api user verifies that the "message" information in the response body is "Deleted"..passed
-* The api user verifies that the "data" "Deleted ID" information in the returned response body is the same as the id path parameter written in the endpoint..passed
-* The api user verifies that the "message" is "there is no hub with this id" by sending a GET request to the "api" "hub" endpoint with the "data" "Deleted ID" returned in the response body..passed
-]]></system-out>
-    </testcase>
-</testsuite>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" time="0.215"/>

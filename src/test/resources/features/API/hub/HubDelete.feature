@@ -18,3 +18,41 @@ Feature: As an administrator (admin), I want to be able to delete hub informatio
     * The api user verifies that the "message" is "there is no hub with this id" by sending a GET request to the "api" "hub" endpoint with the "data" "Deleted ID" returned in the response body.
     # Api kullanicisi response bodyde donen "data" "Deleted ID" ile "api" "hub" endpoint'ine GET request göndererek "message" bilgisinin "there is no hub with this id" oldugunu dogrular
 
+
+  Scenario: admin Send a DELETE request to the api/hub/delete endpoint with valid authorization and no id,
+  verify that the response status code is 203 and the message in the response body is 'No id.'
+
+    * The api user sets "api/hub/delete" path parameters.
+    # Api kullanicisi "api/hub/delete/{id}" path parametrelerini olusturur
+    * The api user sends a "DELETE" request and saves the returned response.
+    # Api kullanicisi DELETE request gonderir ve donen responsei kaydeder
+    * The api user verifies that the status code is 203.
+    # Api kullanicisi status codeun 203 oldugunu dogrular
+    * The api user verifies that the "message" information in the response body is "No id.".
+    # Api kullanicisi response bodydeki message bilgisinin "No id." oldugunu dogrular
+
+
+  Scenario: admin Send a DELETE request to the api/hub/delete/{id} endpoint with valid authorization and a
+  non-existent id, verify that the response status code is 203 and the message in the response body is
+  'there is no hub with this id'
+
+    * The api user sets "api/hub/delete/2563" path parameters.
+    # Api kullanicisi "api/hub/delete/{id}" path parametrelerini olusturur
+    * The api user sends a "DELETE" request and saves the returned response.
+    # Api kullanicisi DELETE request gonderir ve donen responsei kaydeder
+    * The api user verifies that the status code is 203.
+    # Api kullanicisi status codeun 203 oldugunu dogrular
+    * The api user verifies that the "message" information in the response body is "there is no hub with this id".
+    # Api kullanicisi response bodydeki message bilgisinin "there is no hub with this id" oldugunu dogrular
+
+
+  @Delete
+  Scenario: Invalid Token HUB Send a DELETE request to the api/hub/delete/{id} endpoint with invalid
+  authorization, verify that the response status code is 401 and the message in the response body is
+  'Unauthenticated.'
+
+    * The api user sets "api/hub/delete" path parameters.
+    # Api kullanicisi "api/hub/delete/{id}" path parametrelerini olusturur
+    * The api user sends a "DELETE" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
+    # Api kullanicisi DELETE request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
+
