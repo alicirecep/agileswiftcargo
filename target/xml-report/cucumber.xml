@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" time="0.215"/>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="7.369">
+    <testcase classname="As an administrator (admin) I want to create a parcel record via API connection." name="admin Send a POST request to the api/parcel/add endpoint with valid authorization and missing data (merchant_id), verify the response status code is 400, and the message is" time="6.914">
+        <system-out><![CDATA[* The api user sets "api/parcel/add" path parameters........................passed
+* The api user prepares a POST request containing 6, 1, 1, "John Due", "145879632147" and "318 WARREN ST, Brooklyn, NY 11206" information to send to the api hubadd endpoint..passed
+* The api user sends a "POST" request and saves the returned response.......passed
+* The api user verifies that the status code is 400.........................passed
+* The api user verifies that the "message" information in the response body is "No merchant id."..passed
+]]></system-out>
+    </testcase>
+</testsuite>

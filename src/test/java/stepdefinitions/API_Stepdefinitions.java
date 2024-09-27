@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
 import utilities.API_Utilities.API_Methods;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 public class API_Stepdefinitions extends BaseTest {
@@ -148,7 +148,80 @@ public class API_Stepdefinitions extends BaseTest {
     public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int merchant_id, int merchant_shop_id, String pickup_address, String pickup_phone, String customer_name, String customer_phone, String customer_address, String invoice_no, int category_id, int weight, int delivery_type_id, int first_hub_id, int hub_id, int transfer_hub_id, String cash_collection) {
         repJP = response.jsonPath();
 
-        //assertEquals(name, repJP.getString("data[" + dataIndex + "].name"));
+        assertEquals(merchant_id, repJP.getInt("data[" + dataIndex + "].merchant_id"));
+        assertEquals(merchant_shop_id, repJP.getInt("data[" + dataIndex + "].merchant_shop_id"));
+        assertEquals(pickup_address, repJP.getString("data[" + dataIndex + "].pickup_address"));
+        assertEquals(pickup_phone, repJP.getString("data[" + dataIndex + "].pickup_phone"));
+        assertEquals(customer_name, repJP.getString("data[" + dataIndex + "].customer_name"));
+        assertEquals(customer_phone, repJP.getString("data[" + dataIndex + "].customer_phone"));
+        assertEquals(customer_address, repJP.getString("data[" + dataIndex + "].customer_address"));
+        assertEquals(invoice_no, repJP.getString("data[" + dataIndex + "].invoice_no"));
+        assertEquals(category_id, repJP.getInt("data[" + dataIndex + "].category_id"));
+        assertEquals(weight, repJP.getInt("data[" + dataIndex + "].weight"));
+        assertEquals(delivery_type_id, repJP.getInt("data[" + dataIndex + "].delivery_type_id"));
+        assertNull(repJP.get("data[" + dataIndex + "].packaging_id"));
+        assertEquals(first_hub_id, repJP.getInt("data[" + dataIndex + "].first_hub_id"));
+        assertEquals(hub_id, repJP.getInt("data[" + dataIndex + "].hub_id"));
+        assertEquals(transfer_hub_id, repJP.getInt("data[" + dataIndex + "].transfer_hub_id"));
+        assertEquals(cash_collection, repJP.getString("data[" + dataIndex + "].cash_collection"));
+    }
+    // ********************************************************************************************************************
+
+    // ************************************************ api/parcel/{id}****************************************************
+    @Given("The api user verifies that the {string} information in the response body is true.")
+    public void the_api_user_verifies_that_the_information_in_the_response_body_is_true(String key) {
+        response.then()
+                .assertThat()
+                .body(key, equalTo(true));
+    }
+
+    @Given("The api user verifies that the data in the response body includes {int}, {int}, {int}, {string}, {string}, {string}, {string}, {string}, {string}, {int}, {int}, {int}, {int}, {int}, {int} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, int merchant_id, int merchant_shop_id, String pickup_address, String pickup_phone, String customer_name, String customer_phone, String customer_address, String invoice_no, int category_id, int weight, int delivery_type_id, int first_hub_id, int hub_id, int transfer_hub_id, String cash_collection) {
+        repJP = response.jsonPath();
+
+        assertEquals(id, repJP.getInt("data.id"));
+        assertEquals(merchant_id, repJP.getInt("data.merchant_id"));
+        assertEquals(merchant_shop_id, repJP.getInt("data.merchant_shop_id"));
+        assertEquals(pickup_address, repJP.getString("data.pickup_address"));
+        assertEquals(pickup_phone, repJP.getString("data.pickup_phone"));
+        assertEquals(customer_name, repJP.getString("data.customer_name"));
+        assertEquals(customer_phone, repJP.getString("data.customer_phone"));
+        assertEquals(customer_address, repJP.getString("data.customer_address"));
+        assertEquals(invoice_no, repJP.getString("data.invoice_no"));
+        assertEquals(category_id, repJP.getInt("data.category_id"));
+        assertEquals(weight, repJP.getInt("data.weight"));
+        assertEquals(delivery_type_id, repJP.getInt("data.delivery_type_id"));
+        assertNull(repJP.get("data.packaging_id"));
+        assertEquals(first_hub_id, repJP.getInt("data.first_hub_id"));
+        assertEquals(hub_id, repJP.getInt("data.hub_id"));
+        assertEquals(transfer_hub_id, repJP.getInt("data.transfer_hub_id"));
+        assertEquals(cash_collection, repJP.getString("data.cash_collection"));
+    }
+
+    // ********************************************************************************************************************
+
+    // ************************************************ api/parcel/{id}****************************************************
+    @Given("The api user prepares a POST request to send to the api parceladd endpoint.")
+    public void the_api_user_prepares_a_post_request_to_send_to_the_api_parceladd_endpoint() {
+        map = testData.requestBody("parcel");
+
+        requestBody = gson.toJson(map);
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a POST request containing {int}, {int}, {int}, {string}, {string} and {string} information to send to the api hubadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_hubadd_endpoint(int merchant_shop_id, int category_id, int delivery_type_id, String customer_name, String customer_phone, String customer_address) {
+        requestBody = builder
+                .addParameterForJSONObject("merchant_shop_id", merchant_shop_id)
+                .addParameterForJSONObject("category_id", category_id)
+                .addParameterForJSONObject("delivery_type_id", delivery_type_id)
+                .addParameterForJSONObject("customer_name", customer_name)
+                .addParameterForJSONObject("customer_phone", customer_phone)
+                .addParameterForJSONObject("customer_address", customer_address)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
     }
     // ********************************************************************************************************************
 }
