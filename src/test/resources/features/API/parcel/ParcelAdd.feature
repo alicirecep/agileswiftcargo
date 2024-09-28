@@ -5,7 +5,7 @@ Feature: As an administrator (admin) I want to create a parcel record via API co
   by sending a GET request to api/parcel/{id} using the 'Parcel ID' from the response.
 
     * The api user sets "api/parcel/add" path parameters.
-    * The api user prepares a POST request to send to the api parceladd endpoint.
+    * The api user prepares a POST request to send to the api "parcel" add endpoint.
     * The api user sends a "POST" request and saves the returned response.
     * The api user verifies that the status code is 200.
     * The api user verifies that the "message" information in the response body is "Parcel is added".
@@ -30,8 +30,9 @@ Feature: As an administrator (admin) I want to create a parcel record via API co
   verify the response status code is 401, and the message is 'Unauthenticated.'
 
     * The api user sets "api/parcel/add" path parameters.
-    * The api user prepares a POST request to send to the api parceladd endpoint.
+    * The api user prepares a POST request to send to the api "parcel" add endpoint.
     * The api user sends a "POST" request and saves the returned response.
     * The api user verifies that the status code is 401.
     * The api user verifies that the "message" information in the response body is "Unauthenticated.".
+
 

@@ -5,6 +5,10 @@ import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
 import utilities.API_Utilities.API_Methods;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -65,6 +69,14 @@ public class API_Stepdefinitions extends BaseTest {
     @Given("The api user sends a {string} request, saves the returned response, and verifies that the status code is '400' with the reason phrase Bad Request.")
     public void the_api_user_sends_a_request_saves_the_returned_response_and_verifies_that_the_status_code_is_with_the_reason_phrase_bad_request(String httpMethod) {
         assertEquals(configLoader.getApiConfig("badRequestExceptionMessage"), API_Methods.tryCatchRequest(httpMethod, requestBody));
+    }
+
+    @Given("The api user prepares a POST request to send to the api {string} add endpoint.")
+    public void the_api_user_prepares_a_post_request_to_send_to_the_api_add_endpoint(String folder) {
+        map = testData.requestBody(folder);
+        requestBody = gson.toJson(map);
+
+        System.out.println("POST Request Body : " + requestBody);
     }
 
     // ************************************************ api/hub/list ******************************************************
@@ -200,16 +212,7 @@ public class API_Stepdefinitions extends BaseTest {
 
     // ********************************************************************************************************************
 
-    // ************************************************ api/parcel/{id}****************************************************
-    @Given("The api user prepares a POST request to send to the api parceladd endpoint.")
-    public void the_api_user_prepares_a_post_request_to_send_to_the_api_parceladd_endpoint() {
-        map = testData.requestBody("parcel");
-
-        requestBody = gson.toJson(map);
-
-        System.out.println("POST Request Body : " + requestBody);
-    }
-
+    // ************************************************ api/parcel/add ****************************************************
     @Given("The api user prepares a POST request containing {int}, {int}, {int}, {string}, {string} and {string} information to send to the api hubadd endpoint.")
     public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_hubadd_endpoint(int merchant_shop_id, int category_id, int delivery_type_id, String customer_name, String customer_phone, String customer_address) {
         requestBody = builder
@@ -224,4 +227,94 @@ public class API_Stepdefinitions extends BaseTest {
         System.out.println("POST Request Body : " + requestBody);
     }
     // ********************************************************************************************************************
+
+    // ******************************************** api/parcel/edit/{id} **************************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string} and {string} information to send to the api parceledit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_parceledit_endpoint(String customer_name, String customer_phone, String customer_address) {
+        requestBody = builder
+                .addParameterForMap("customer_name", customer_name)
+                .addParameterForMap("customer_phone", customer_phone)
+                .addParameterForMap("customer_address", customer_address)
+                .buildUsingMap();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/deliveryman/list **************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {int}, {string}, {string}, {string}, {string}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int user_id, int status, String delivery_charge, String pickup_charge, String return_charge, String current_balance, String opening_balance, String created_at, String updated_at) {
+        response.then()
+                .assertThat()
+                .body("[" + dataIndex + "].user_id", equalTo(user_id),
+                        "[" + dataIndex + "].status", equalTo(status),
+                        "[" + dataIndex + "].delivery_charge", equalTo(delivery_charge),
+                        "[" + dataIndex + "].pickup_charge", equalTo(pickup_charge),
+                        "[" + dataIndex + "].return_charge", equalTo(return_charge),
+                        "[" + dataIndex + "].current_balance", equalTo(current_balance),
+                        "[" + dataIndex + "].opening_balance", equalTo(opening_balance),
+                        "[" + dataIndex + "].driving_license_image_id", nullValue(),
+                        "[" + dataIndex + "].created_at", equalTo(created_at),
+                        "[" + dataIndex + "].updated_at", equalTo(updated_at));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/deliveryman/{id} **************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {int}, {int}, {string}, {string}, {string}, {string}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, int user_id, int status, String delivery_charge, String pickup_charge, String return_charge, String current_balance, String opening_balance, String created_at, String updated_at) {
+        map = response.as(HashMap.class);
+
+        assertEquals(id, ((Map) (((List) (map.get("data"))).get(0))).get("id"));
+        assertEquals(user_id, ((Map) (((List) (map.get("data"))).get(0))).get("user_id"));
+        assertEquals(status, ((Map) (((List) (map.get("data"))).get(0))).get("status"));
+        assertEquals(delivery_charge, ((Map) (((List) (map.get("data"))).get(0))).get("delivery_charge"));
+        assertEquals(pickup_charge, ((Map) (((List) (map.get("data"))).get(0))).get("pickup_charge"));
+        assertEquals(return_charge, ((Map) (((List) (map.get("data"))).get(0))).get("return_charge"));
+        assertEquals(current_balance, ((Map) (((List) (map.get("data"))).get(0))).get("current_balance"));
+        assertEquals(opening_balance, ((Map) (((List) (map.get("data"))).get(0))).get("opening_balance"));
+        assertNull(((Map) (((List) (map.get("data"))).get(0))).get("driving_license_image_id"));
+        assertEquals(created_at, ((Map) (((List) (map.get("data"))).get(0))).get("created_at"));
+        assertEquals(updated_at, ((Map) (((List) (map.get("data"))).get(0))).get("updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/deliveryman/filter ************************************************
+    @Given("The api user prepares a post request with {string} information as {string} to send to the api deliveryman filter endpoint.")
+    public void the_api_user_prepares_a_post_request_with_information_as_to_send_to_the_api_deliveryman_filter_endpoint(String key, String value) {
+        requestBody = builder
+                .addParameterForMap(key, value)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, Integer id, String name, String email, String mobile) {
+        response.then()
+                .assertThat()
+                .body("[" + dataIndex + "].user.id", equalTo(id),
+                        "[" + dataIndex + "].user.name", equalTo(name),
+                        "[" + dataIndex + "].user.email", equalTo(email),
+                        "[" + dataIndex + "].user.mobile", equalTo(mobile));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/deliveryman/edit/{id} *********************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string}, {string}, {string}, {string}, {string} and {string} information to send to the api parceledit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_parceledit_endpoint(String name, String mobile, String email, String address, String delivery_charge, String pickup_charge, String return_charge) {
+        requestBody = builder
+                .addParameterForJSONObject("name",name)
+                .addParameterForJSONObject("mobile",mobile)
+                .addParameterForJSONObject("email",email)
+                .addParameterForJSONObject("address",address)
+                .addParameterForJSONObject("delivery_charge",delivery_charge)
+                .addParameterForJSONObject("pickup_charge",pickup_charge)
+                .addParameterForJSONObject("return_charge",return_charge)
+                .buildUsingJSONObject();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+
 }

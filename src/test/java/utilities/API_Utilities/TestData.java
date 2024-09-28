@@ -31,10 +31,26 @@ public class TestData {
         return requestBody;
     }
 
+    public HashMap deliverymanRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("name", "Delivery Man 258");
+        requestBody.put("mobile", "12589634780");
+        requestBody.put("email", "deliveryman@deliveryman.com");
+        requestBody.put("password", "123123");
+        requestBody.put("address", "New York City");
+        requestBody.put("hub_id", 1);
+        requestBody.put("status", 1);
+
+        return requestBody;
+    }
+
     public HashMap requestBody(String folder) {
 
         reqBody.put("hub", hubRequestBody());
         reqBody.put("parcel", parcelRequestBody());
+        reqBody.put("deliveryman", deliverymanRequestBody());
 
         return reqBody.get(folder);
     }

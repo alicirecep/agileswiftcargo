@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="7.369">
-    <testcase classname="As an administrator (admin) I want to create a parcel record via API connection." name="admin Send a POST request to the api/parcel/add endpoint with valid authorization and missing data (merchant_id), verify the response status code is 400, and the message is" time="6.914">
-        <system-out><![CDATA[* The api user sets "api/parcel/add" path parameters........................passed
-* The api user prepares a POST request containing 6, 1, 1, "John Due", "145879632147" and "318 WARREN ST, Brooklyn, NY 11206" information to send to the api hubadd endpoint..passed
-* The api user sends a "POST" request and saves the returned response.......passed
-* The api user verifies that the status code is 400.........................passed
-* The api user verifies that the "message" information in the response body is "No merchant id."..passed
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="11.949">
+    <testcase classname="As an administrator (admin), I want to be able to update Delivery man information with the specified id number via API connection." name="admin DELIVERY When a PATCH request with valid authorization and correct data (name, mobile, email," time="11.396">
+        <system-out><![CDATA[* The api user sets "api/deliveryman/edit" path parameters..................passed
+* The api user prepares a PATCH request containing "Delivery Man 748", "12589634780", "dvman@deliveryman.com", "Atlanta", "100.00", "200.00" and "30.00" information to send to the api parceledit endpoint..passed
+* The api user sends a "PATCH" request and saves the returned response......passed
+* The api user verifies that the status code is 200.........................passed
+* The api user verifies that the "message" information in the response body is "Updated"..passed
+* The api user verifies that the "Delivery Man" "id" information in the returned response body is the same as the id path parameter written in the endpoint..passed
+* The api user verifies that the "data[0].user.name" is "Delivery Man 748" by sending a GET request to the "api" "deliveryman" endpoint with the "Delivery Man" "id" returned in the response body..passed
 ]]></system-out>
     </testcase>
 </testsuite>
