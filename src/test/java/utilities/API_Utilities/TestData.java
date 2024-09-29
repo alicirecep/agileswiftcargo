@@ -46,11 +46,42 @@ public class TestData {
         return requestBody;
     }
 
+    public HashMap merchantRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("name", "Merchant Test");
+        requestBody.put("business_name", "Firm AŞ");
+        requestBody.put("mobile", "11111111111");
+        requestBody.put("email", "merchantfirm@gmail.com");
+        requestBody.put("password", "123123123");
+        requestBody.put("address", "Houston");
+        requestBody.put("hub_id", 1);
+        requestBody.put("status", 1);
+
+        return requestBody;
+    }
+
+    public HashMap shopRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("merchant_id", 8);
+        requestBody.put("name", "Prof Cargo");
+        requestBody.put("contact_no", "33358975556");
+        requestBody.put("address", "New York");
+        requestBody.put("status", 1);
+
+        return requestBody;
+    }
+
     public HashMap requestBody(String folder) {
 
         reqBody.put("hub", hubRequestBody());
         reqBody.put("parcel", parcelRequestBody());
         reqBody.put("deliveryman", deliverymanRequestBody());
+        reqBody.put("merchant", merchantRequestBody());
+        reqBody.put("shop", shopRequestBody());
 
         return reqBody.get(folder);
     }

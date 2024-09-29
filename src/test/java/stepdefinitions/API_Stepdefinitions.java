@@ -3,6 +3,8 @@ package stepdefinitions;
 import base.BaseTest;
 import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
+import pojos.merchant.MerchantPojo;
+import pojos.shop.ShopPojo;
 import utilities.API_Utilities.API_Methods;
 
 import java.util.HashMap;
@@ -303,13 +305,128 @@ public class API_Stepdefinitions extends BaseTest {
     @Given("The api user prepares a PATCH request containing {string}, {string}, {string}, {string}, {string}, {string} and {string} information to send to the api parceledit endpoint.")
     public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_parceledit_endpoint(String name, String mobile, String email, String address, String delivery_charge, String pickup_charge, String return_charge) {
         requestBody = builder
-                .addParameterForJSONObject("name",name)
-                .addParameterForJSONObject("mobile",mobile)
-                .addParameterForJSONObject("email",email)
-                .addParameterForJSONObject("address",address)
-                .addParameterForJSONObject("delivery_charge",delivery_charge)
-                .addParameterForJSONObject("pickup_charge",pickup_charge)
-                .addParameterForJSONObject("return_charge",return_charge)
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("mobile", mobile)
+                .addParameterForJSONObject("email", email)
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("delivery_charge", delivery_charge)
+                .addParameterForJSONObject("pickup_charge", pickup_charge)
+                .addParameterForJSONObject("return_charge", return_charge)
+                .buildUsingJSONObject();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/merchant/list *****************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {string}, {string}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int user_id, String business_name, String merchant_unique_id, String current_balance, String opening_balance, String vat) {
+        response.then()
+                .assertThat()
+                .body("[" + dataIndex + "].user_id", equalTo(user_id),
+                        "[" + dataIndex + "].business_name", equalTo(business_name),
+                        "[" + dataIndex + "].merchant_unique_id", equalTo(merchant_unique_id),
+                        "[" + dataIndex + "].current_balance", equalTo(current_balance),
+                        "[" + dataIndex + "].opening_balance", equalTo(opening_balance),
+                        "[" + dataIndex + "].vat", equalTo(vat));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/merchant/{id} *****************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {int}, {string}, {string}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, int user_id, String business_name, String merchant_unique_id, String current_balance, String opening_balance, String vat) {
+        response.then()
+                .assertThat()
+                .body("id", equalTo(id),
+                        "user_id", equalTo(user_id),
+                        "business_name", equalTo(business_name),
+                        "merchant_unique_id", equalTo(merchant_unique_id),
+                        "current_balance", equalTo(current_balance),
+                        "opening_balance", equalTo(opening_balance),
+                        "vat", equalTo(vat));
+    }
+    // ********************************************************************************************************************
+
+    // ****************************************** api/merchant/edit/{id} **************************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string} and {string} information to send to the api merchantedit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_merchantedit_endpoint(String business_name, String mobile, String email) {
+        MerchantPojo merchantPojo = new MerchantPojo(business_name, mobile, email);
+        requestBody = gson.toJson(merchantPojo);
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // *********************************************** api/shop/list ******************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {string}, {string}, {string}, {int}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int merchant_id, String name, String contact_no, String address, int status, int default_shop, String created_at, String updated_at) {
+        repJP = response.jsonPath();
+
+        assertEquals(merchant_id, repJP.getInt("[" + dataIndex + "].merchant_id"));
+        assertEquals(name, repJP.getString("[" + dataIndex + "].name"));
+        assertEquals(contact_no, repJP.getString("[" + dataIndex + "].contact_no"));
+        assertEquals(address, repJP.getString("[" + dataIndex + "].address"));
+        assertEquals(status, repJP.getInt("[" + dataIndex + "].status"));
+        assertEquals(default_shop, repJP.getInt("[" + dataIndex + "].default_shop"));
+        assertEquals(created_at, repJP.getString("[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // *********************************************** api/shop/{id} ******************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {int}, {string}, {string}, {string}, {int}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, int merchant_id, String name, String contact_no, String address, int status, int default_shop, String created_at, String updated_at) {
+        ShopPojo shopPojo = new ShopPojo(id, merchant_id, name, contact_no, address, status, default_shop, created_at, updated_at);
+
+        assertEquals(id, shopPojo.getId());
+        assertEquals(merchant_id, shopPojo.getMerchantId());
+        assertEquals(name, shopPojo.getName());
+        assertEquals(contact_no, shopPojo.getContactNo());
+        assertEquals(address, shopPojo.getAddress());
+        assertEquals(status, shopPojo.getStatus());
+        assertEquals(default_shop, shopPojo.getDefaultShop());
+        assertEquals(created_at, shopPojo.getCreatedAt());
+        assertEquals(updated_at, shopPojo.getUpdatedAt());
+
+    }
+    // ********************************************************************************************************************
+
+    // *********************************************** api/shop/add *******************************************************
+    @Given("The api user prepares a POST request containing {string}, {string}, {string} and {int} information to send to the api shopadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_shopadd_endpoint(String name, String contact_no, String address, int status) {
+        requestBody = builder
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("contact_no", contact_no)
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("status", status)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a POST request containing {int}, {string}, {string}, {string} and {int} information to send to the api shopadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_shopadd_endpoint(int merchant_id, String name, String contact_no, String address, int status) {
+        requestBody = builder
+                .addParameterForJSONObject("merchant_id", merchant_id)
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("contact_no", contact_no)
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("status", status)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************* api/shop/edit/{id} ***************************************************
+    @Given("The api user prepares a PATCH request containing {int}, {string}, {string}, {string} and {int} information to send to the api shopedit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_shopedit_endpoint(int merchant_id, String name, String contact_no, String address, int status) {
+        requestBody = builder
+                .addParameterForJSONObject("merchant_id", merchant_id)
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("contact_no", contact_no)
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("status", status)
                 .buildUsingJSONObject();
 
         System.out.println("PATCH Request Body : " + requestBody);
