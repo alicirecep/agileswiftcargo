@@ -267,6 +267,26 @@ public class API_Methods extends BaseTest {
                 pp3 = "add";
                 folder = "hub";
                 idKey = "New Hub ID";
+            } else if (scenarioName.contains("PARCEL")) {
+                pp2 = "parcel";
+                pp3 = "add";
+                folder = "parcel";
+                idKey = "Parcel ID";
+            } else if (scenarioName.contains("DELIVERY")) {
+                pp2 = "deliveryman";
+                pp3 = "add";
+                folder = "deliveryman";
+                idKey = "deliveryman id";
+            } else if (scenarioName.contains("MERCHANT")) {
+                pp2 = "merchant";
+                pp3 = "add";
+                folder = "merchant";
+                idKey = "New Merchant ID";
+            }else if (scenarioName.contains("SHOP")) {
+                pp2 = "shop";
+                pp3 = "add";
+                folder = "shop";
+                idKey = "New Shop ID";
             }
 
             // ID oluşturma
