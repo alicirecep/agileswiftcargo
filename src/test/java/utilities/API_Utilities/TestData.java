@@ -75,6 +75,41 @@ public class TestData {
         return requestBody;
     }
 
+    public HashMap regularRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("merchant_id", 2);
+        requestBody.put("note", "Note....");
+        requestBody.put("parcel_quantity", 5);
+
+        return requestBody;
+    }
+
+    public HashMap expressRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("merchant_id", 2);
+        requestBody.put("address", "Arizona");
+        requestBody.put("name", "Test Express Pickup Request 2");
+        requestBody.put("phone", "14785236987");
+
+        return requestBody;
+    }
+
+    public HashMap packagingRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("name", "Gift Box");
+        requestBody.put("price", "50.00");
+        requestBody.put("status", 1);
+        requestBody.put("position", "5");
+
+        return requestBody;
+    }
+
     public HashMap requestBody(String folder) {
 
         reqBody.put("hub", hubRequestBody());
@@ -82,6 +117,9 @@ public class TestData {
         reqBody.put("deliveryman", deliverymanRequestBody());
         reqBody.put("merchant", merchantRequestBody());
         reqBody.put("shop", shopRequestBody());
+        reqBody.put("regular", regularRequestBody());
+        reqBody.put("express", expressRequestBody());
+        reqBody.put("packaging", packagingRequestBody());
 
         return reqBody.get(folder);
     }
