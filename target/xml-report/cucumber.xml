@@ -1,53 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="9.841">
-    <testcase classname="As an administrator (admin), I want to be able to update the shop information with the specified id number via API connection." name="admin SHOP When a PATCH request is sent to the api/shop/edit/{id} endpoint with valid authorization," time="9.312">
-        <failure message="1 expectation failed.&#10;JSON path name doesn't match.&#10;Expected: MNG&#10;  Actual: Prof Cargo&#10;" type="java.lang.AssertionError"><![CDATA[* The api user sets "api/shop/edit" path parameters.........................passed
-* The api user prepares a PATCH request containing 8, "MNG", "1111111111", "New York" and 1 information to send to the api shopedit endpoint..passed
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="12.451">
+    <testcase classname="As an administrator (admin), I want to be able to update the packaging information with the specified id number via API connection." name="admin PACKAGING When sending a PATCH request to the api/packaging/edit/{id} endpoint with valid" time="11.76">
+        <system-out><![CDATA[* The api user sets "api/packaging/edit" path parameters....................passed
+* The api user prepares a PATCH request containing "Gift Box with flower" and "75.00" information to send to the api packagingedit endpoint..passed
 * The api user sends a "PATCH" request and saves the returned response......passed
 * The api user verifies that the status code is 200.........................passed
 * The api user verifies that the "message" information in the response body is "Updated"..passed
-* The api user verifies that the "data" "Updated Shop ID" information in the returned response body is the same as the id path parameter written in the endpoint..passed
-* The api user verifies that the "name" is "MNG" by sending a GET request to the "api" "shop" endpoint with the "data" "Updated Shop ID" returned in the response body..failed
-
-StackTrace:
-java.lang.AssertionError: 1 expectation failed.
-JSON path name doesn't match.
-Expected: MNG
-  Actual: Prof Cargo
-
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
-	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:72)
-	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:105)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:59)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
-	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:499)
-	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
-	at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:684)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
-	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
-	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
-	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
-	at io.restassured.internal.ResponseSpecificationImpl.body(ResponseSpecificationImpl.groovy:262)
-	at io.restassured.specification.ResponseSpecification$body$1.callCurrent(Unknown Source)
-	at io.restassured.internal.ResponseSpecificationImpl.body(ResponseSpecificationImpl.groovy:109)
-	at io.restassured.internal.ValidatableResponseOptionsImpl.body(ValidatableResponseOptionsImpl.java:244)
-	at io.restassured.internal.ValidatableResponseImpl.super$2$body(ValidatableResponseImpl.groovy)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
-	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
-	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
-	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1268)
-	at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuperN(ScriptBytecodeAdapter.java:144)
-	at io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy:298)
-	at io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy)
-	at utilities.API_Utilities.API_Methods.verification(API_Methods.java:224)
-	at stepdefinitions.API_Stepdefinitions.the_api_user_verifies_that_the_is_by_sending_a_get_request_to_the_endpoint_with_the_returned_in_the_response_body(API_Stepdefinitions.java:58)
-	at ✽.The api user verifies that the "name" is "MNG" by sending a GET request to the "api" "shop" endpoint with the "data" "Updated Shop ID" returned in the response body.(file:///C:/Users/ACER/OneDrive%20-%20edulog/Masaüstü/Wise%20Quarter/agileswiftcargo/src/test/resources/features/API/merchantShop/ShopEdit.feature:15)
-]]></failure>
+* The api user verifies that the "data" "id" information in the returned response body is the same as the id path parameter written in the endpoint..passed
+* The api user verifies that the "name" is "Gift Box with flower" by sending a GET request to the "api" "packaging" endpoint with the "data" "id" returned in the response body..passed
+]]></system-out>
     </testcase>
 </testsuite>

@@ -7,7 +7,7 @@ Feature: As an administrator (admin) I want to be able to create a new hub recor
 
     * The api user sets "api/hub/add" path parameters.
     # Api kullanicisi "api/hub/add" path parametrelerini olusturur
-    * The api user prepares a POST request containing "<name>", "<phone>" and "<address>" information to send to the api hubadd endpoint.
+    * The api user prepares a POST request containing "<name>", "<phone>" and "<address>" information to send to the api expressadd endpoint.
     # Api kullanicisi api hubadd endpointine gondermek icin "<name>", "<phone>" ve "<address>" bilgilerini iceren bir post request hazirlar
     * The api user sends a "POST" request and saves the returned response.
     # Api kullanicisi POST request gonderir ve donen responsei kaydeder
@@ -63,7 +63,7 @@ Feature: As an administrator (admin) I want to be able to create a new hub recor
 
     * The api user sets "api/hub/add" path parameters.
     # Api kullanicisi "api/hub/add" path parametrelerini olusturur
-    * The api user prepares a POST request containing "<name>", "<phone>" and "<address>" information to send to the api hubadd endpoint.
+    * The api user prepares a POST request containing "<name>", "<phone>" and "<address>" information to send to the api expressadd endpoint.
     # Api kullanicisi api hubadd endpointine gondermek icin "<name>", "<phone>" ve "<address>" bilgilerini iceren bir post request hazirlar
     * The api user sends a "POST" request and saves the returned response.
     # Api kullanicisi POST request gonderir ve donen responsei kaydeder

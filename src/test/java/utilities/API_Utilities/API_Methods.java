@@ -224,10 +224,17 @@ public class API_Methods extends BaseTest {
                 .body(path, equalTo(value));
     }
 
-    public static int addedId(String pp2, String pp3, String folder, String idKey) {
+    public static int addedId(String pp2, String pp3, String pp4, String folder, String idKey) {
 
         spec = new RequestSpecBuilder().setBaseUri(configLoader.getApiConfig("base_url")).build();
-        spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3);
+        String pathParam = null;
+        if (pp4 != null) {
+            spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3, "pp4", pp4);
+            pathParam = "/{pp1}/{pp2}/{pp3}/{pp4}";
+        } else {
+            spec.pathParams("pp1", "api", "pp2", pp2, "pp3", pp3);
+            pathParam = "/{pp1}/{pp2}/{pp3}";
+        }
 
         HashMap<String, Object> requestBody = testData.requestBody(folder);
 
@@ -238,7 +245,7 @@ public class API_Methods extends BaseTest {
                 .header("Authorization", "Bearer " + Authentication.generateToken("admin"))
                 .when()
                 .body(requestBody)
-                .post("/{pp1}/{pp2}/{pp3}");
+                .post(pathParam);
 
         map = response.as(HashMap.class);
 
@@ -259,6 +266,7 @@ public class API_Methods extends BaseTest {
 
             String pp2 = null;
             String pp3 = null;
+            String pp4 = null;
             String folder = null;
             String idKey = null;
 
@@ -282,15 +290,32 @@ public class API_Methods extends BaseTest {
                 pp3 = "add";
                 folder = "merchant";
                 idKey = "New Merchant ID";
-            }else if (scenarioName.contains("SHOP")) {
+            } else if (scenarioName.contains("SHOP")) {
                 pp2 = "shop";
                 pp3 = "add";
                 folder = "shop";
                 idKey = "New Shop ID";
+            } else if (scenarioName.contains("REGULAR")) {
+                pp2 = "pickuprequest";
+                pp3 = "regular";
+                pp4 = "add";
+                folder = "regular";
+                idKey = "New Pickup Request  ID";
+            } else if (scenarioName.contains("EXPRESS")) {
+                pp2 = "pickuprequest";
+                pp3 = "express";
+                pp4 = "add";
+                folder = "express";
+                idKey = "New Pickup Request  ID";
+            } else if (scenarioName.contains("PACKAGING")) {
+                pp2 = "packaging";
+                pp3 = "add";
+                folder = "packaging";
+                idKey = "new packaging ID";
             }
 
             // ID oluşturma
-            addedId = API_Methods.addedId(pp2, pp3, folder, idKey);
+            addedId = API_Methods.addedId(pp2, pp3, pp4, folder, idKey);
         }
     }
 

@@ -1,0 +1,1 @@
+Feature: As an administrator (admin), I want to be able to access the entire blog list via API connection.
