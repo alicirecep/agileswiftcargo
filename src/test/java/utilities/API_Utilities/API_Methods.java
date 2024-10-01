@@ -312,6 +312,16 @@ public class API_Methods extends BaseTest {
                 pp3 = "add";
                 folder = "packaging";
                 idKey = "new packaging ID";
+            } else if (scenarioName.contains("BLOG")) {
+                pp2 = "blog";
+                pp3 = "add";
+                folder = "blog";
+                idKey = "New Blog ID";
+            } else if (scenarioName.contains("TICKET")) {
+                pp2 = "ticket";
+                pp3 = "add";
+                folder = "ticket";
+                idKey = "New Ticket ID";
             }
 
             // ID oluşturma

@@ -110,6 +110,32 @@ public class TestData {
         return requestBody;
     }
 
+    public HashMap blogRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("title", "Blog 35");
+        requestBody.put("description", "The rapid growth of e-commerce has reshaped the retail landscape and revolutionized consumer behavior.");
+        requestBody.put("position", "5");
+        requestBody.put("status", 1);
+
+        return requestBody;
+    }
+
+    public HashMap ticketRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("department_id", 4);
+        requestBody.put("service", "finans");
+        requestBody.put("priority", "low");
+        requestBody.put("subject", "ticket2");
+        requestBody.put("description", "finans ticket");
+        requestBody.put("date", "2023-08-23");
+
+        return requestBody;
+    }
+
     public HashMap requestBody(String folder) {
 
         reqBody.put("hub", hubRequestBody());
@@ -120,6 +146,8 @@ public class TestData {
         reqBody.put("regular", regularRequestBody());
         reqBody.put("express", expressRequestBody());
         reqBody.put("packaging", packagingRequestBody());
+        reqBody.put("blog", blogRequestBody());
+        reqBody.put("ticket", ticketRequestBody());
 
         return reqBody.get(folder);
     }

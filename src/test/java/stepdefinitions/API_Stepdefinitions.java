@@ -3,9 +3,11 @@ package stepdefinitions;
 import base.BaseTest;
 import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
+import org.hamcrest.Matchers;
 import pojos.merchant.MerchantPojo;
 import pojos.packaging.PackagingPojo;
 import pojos.shop.ShopPojo;
+import pojos.ticket.TicketPojo;
 import utilities.API_Utilities.API_Methods;
 
 import java.util.HashMap;
@@ -633,4 +635,115 @@ public class API_Stepdefinitions extends BaseTest {
         System.out.println("PATCH Request Body : " + requestBody);
     }
     // ********************************************************************************************************************
+
+    // ********************************************** api/blog/list *******************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {string}, {int}, {string}, {string}, {int}, {int}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, String title, int image_id, String description, String position, int status, int created_by, String views, String created_at, String updated_at) {
+        response
+                .then()
+                .assertThat()
+                .body("[" + dataIndex + "].title", containsString(title),
+                        "[" + dataIndex + "].image_id", equalTo(image_id),
+                        "[" + dataIndex + "].description", containsString(description),
+                        "[" + dataIndex + "].position", equalTo(position),
+                        "[" + dataIndex + "].status", equalTo(status),
+                        "[" + dataIndex + "].created_by", equalTo(created_by),
+                        "[" + dataIndex + "].views", equalTo(views),
+                        "[" + dataIndex + "].created_at", equalTo(created_at),
+                        "[" + dataIndex + "].updated_at", equalTo(updated_at));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************** api/blog/last *******************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {string}, {string}, {string}, {int}, {int}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, String title, String description, String position, int status, int created_by, String views, String created_at, String updated_at) {
+        response
+                .then()
+                .assertThat()
+                .body("[" + dataIndex + "].title", equalTo(title),
+                        "[" + dataIndex + "].description", equalTo(description),
+                        "[" + dataIndex + "].position", equalTo(position),
+                        "[" + dataIndex + "].status", equalTo(status),
+                        "[" + dataIndex + "].created_by", equalTo(created_by),
+                        "[" + dataIndex + "].views", equalTo(views),
+                        "[" + dataIndex + "].created_at", equalTo(created_at),
+                        "[" + dataIndex + "].updated_at", equalTo(updated_at));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************** api/blog/{id} *******************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {string}, {int}, {string}, {string}, {int}, {int}, {string}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, String title, int image_id, String description, String position, int status, int created_by, String views, String created_at, String updated_at) {
+        map = response.as(HashMap.class);
+
+        String actualTitle = (String) map.get("title");
+        String actualDescription = (String) map.get("description");
+
+        assertEquals(id, map.get("id"));
+        assertTrue(actualTitle.contains(title));
+        assertEquals(image_id, map.get("image_id"));
+        assertTrue(actualDescription.contains(description));
+        assertEquals(position, map.get("position"));
+        assertEquals(status, map.get("status"));
+        assertEquals(created_by, map.get("created_by"));
+        assertEquals(views, map.get("views"));
+        assertEquals(created_at, map.get("created_at"));
+        assertEquals(updated_at, map.get("updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************* api/blog/edit/{id} *****************************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string}, {string} and {string} information to send to the api blogedit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_blogedit_endpoint(String title, String description, String position, String status) {
+        requestBody = builder
+                .addParameterForJSONObject("title", title)
+                .addParameterForJSONObject("description", description)
+                .addParameterForJSONObject("position", position)
+                .addParameterForJSONObject("status", status)
+                .buildUsingJSONObject();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************** api/ticket/list *****************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {int}, {string}, {string}, {string}, {string}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int user_id, int department_id, String service, String priority, String subject, String description, String date, int status, String created_at, String updated_at) {
+        repJP = response.jsonPath();
+
+        assertEquals(user_id, repJP.getInt("[" + dataIndex + "].user_id"));
+        assertEquals(department_id, repJP.getInt("[" + dataIndex + "].department_id"));
+        assertEquals(service, repJP.getString("[" + dataIndex + "].service"));
+        assertEquals(priority, repJP.getString("[" + dataIndex + "].priority"));
+        assertEquals(subject, repJP.getString("[" + dataIndex + "].subject"));
+        assertTrue(repJP.getString("[" + dataIndex + "].description").contains(description));
+        assertEquals(date, repJP.getString("[" + dataIndex + "].date"));
+        assertNull(repJP.get("[" + dataIndex + "].attached_file"));
+        assertEquals(status, repJP.getInt("[" + dataIndex + "].status"));
+        assertEquals(created_at, repJP.getString("[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************** api/ticket/{id} *****************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {int}, {int}, {string}, {string}, {string}, {string}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, int user_id, int department_id, String service, String priority, String subject, String description, String date, int status, String created_at, String updated_at) {
+        TicketPojo ticketPojo = new TicketPojo(id, user_id, department_id, service, priority, subject, description, date, null, status, created_at, updated_at);
+
+        assertEquals(id, ticketPojo.getId());
+        assertEquals(user_id, ticketPojo.getUserId());
+        assertEquals(department_id, ticketPojo.getDepartmentId());
+        assertEquals(service, ticketPojo.getService());
+        assertEquals(priority, ticketPojo.getPriority());
+        assertEquals(subject, ticketPojo.getSubject());
+        assertTrue(ticketPojo.getDescription().contains(description));
+        assertEquals(date, ticketPojo.getDate());
+        assertNull(ticketPojo.getAttachedFile());
+        assertEquals(status, ticketPojo.getStatus());
+        assertEquals(created_at, ticketPojo.getCreatedAt());
+        assertEquals(updated_at, ticketPojo.getUpdatedAt());
+    }
+    // ********************************************************************************************************************
+
+
 }

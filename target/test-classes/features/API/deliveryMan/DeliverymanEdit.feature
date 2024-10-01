@@ -72,5 +72,3 @@ Feature: As an administrator (admin), I want to be able to update Delivery man i
 
 
 
-
-
