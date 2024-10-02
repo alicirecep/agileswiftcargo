@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="9.25">
-    <testcase classname="As an administrator (admin), I want to be able to access the detailed information of the ticket with the specified id number via the API connection." name="admin Validate that when a GET request is sent to the api/ticket/{id} endpoint with valid authorization" time="8.568">
-        <system-out><![CDATA[* The api user sets "api/ticket/4" path parameters..........................passed
-* The api user sends a "GET" request and saves the returned response........passed
-* The api user verifies that the status code is 200.........................passed
-* The api user verifies that the data in the response body includes 4, 33, 3, "delivery", "high", "Missing Items in Shipment", "complaint from our customer", "2023-09-04", 0, "2023-09-04T14:36:06.000000Z" and "2024-09-17T12:29:12.000000Z"..passed
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="6.987">
+    <testcase classname="As a merchant, I want to be able to delete shop information with the specified id number via API connection." name="Invalid Token Verify that when a DELETE request is sent to the api/merchant-shop/delete/{id} endpoint with" time="6.296">
+        <system-out><![CDATA[* The api user sets "api/merchant-shop/delete/1042" path parameters.........passed
+* The api user sends a "DELETE" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized..passed
 ]]></system-out>
     </testcase>
 </testsuite>

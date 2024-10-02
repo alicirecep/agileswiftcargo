@@ -322,6 +322,11 @@ public class API_Methods extends BaseTest {
                 pp3 = "add";
                 folder = "ticket";
                 idKey = "New Ticket ID";
+            } else if (scenarioName.contains("TODO")) {
+                pp2 = "todo";
+                pp3 = "add";
+                folder = "todo";
+                idKey = "New ToDo ID";
             }
 
             // ID oluşturma

@@ -1,0 +1,1 @@
+Feature: As a merchant, I want to be able to access the merchant ticket list via API connection.
