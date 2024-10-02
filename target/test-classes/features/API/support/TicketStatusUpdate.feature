@@ -6,7 +6,7 @@ Feature: As an administrator (admin), I want to be able to update the status of 
   the response body ID matches the path parameter ID.
 
     * The api user sets "api/ticket/status-update" path parameters.
-    * The api user prepares a GET request containing <status> information to send to the api ticketedit endpoint.
+    * The api user prepares a GET request containing <status> information to send to the api status update endpoint.
     * The api user sends a "GET" request and saves the returned response.
     * The api user verifies that the status code is 200.
     * The api user verifies that the "message" information in the response body is "Status Updated".
@@ -22,7 +22,7 @@ Feature: As an administrator (admin), I want to be able to update the status of 
   in the response body.
 
     * The api user sets "api/ticket/status-update" path parameters.
-    * The api user prepares a GET request containing <status> information to send to the api ticketedit endpoint.
+    * The api user prepares a GET request containing <status> information to send to the api status update endpoint.
     * The api user sends a "GET" request and saves the returned response.
     * The api user verifies that the status code is 203.
     * The api user verifies that the "message" information in the response body is "No id or there is no ticket with this id".
@@ -37,7 +37,7 @@ Feature: As an administrator (admin), I want to be able to update the status of 
   in the response body.
 
     * The api user sets "api/ticket/status-update/9624" path parameters.
-    * The api user prepares a GET request containing <status> information to send to the api ticketedit endpoint.
+    * The api user prepares a GET request containing <status> information to send to the api status update endpoint.
     * The api user sends a "GET" request and saves the returned response.
     * The api user verifies that the status code is 203.
     * The api user verifies that the "message" information in the response body is "No id or there is no ticket with this id".
@@ -52,7 +52,7 @@ Feature: As an administrator (admin), I want to be able to update the status of 
   api/ticket/status-update/{id} returns a 401 status code and the message "Unauthenticated." in the response body.
 
     * The api user sets "api/ticket/status-update" path parameters.
-    * The api user prepares a GET request containing <status> information to send to the api ticketedit endpoint.
+    * The api user prepares a GET request containing <status> information to send to the api status update endpoint.
     * The api user sends a "GET" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
 
     Examples:

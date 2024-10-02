@@ -3,7 +3,6 @@ package stepdefinitions;
 import base.BaseTest;
 import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
-import org.hamcrest.Matchers;
 import pojos.merchant.MerchantPojo;
 import pojos.packaging.PackagingPojo;
 import pojos.shop.ShopPojo;
@@ -93,6 +92,23 @@ public class API_Stepdefinitions extends BaseTest {
                 .buildUsingMap();
 
         System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a GET request containing {int} information to send to the api status update endpoint.")
+    public void the_api_user_prepares_a_get_request_containing_information_to_send_to_the_api_status_update_endpoint(int status) {
+        requestBody = builder
+                .addParameterForMap("status", status)
+                .buildUsingMap();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+
+    @Given("The api user verifies that status is {int}.")
+    public void the_api_user_verifies_that_status_is(int status) {
+        response
+                .then()
+                .assertThat()
+                .body("status", equalTo(status));
     }
 
     // ************************************************ api/hub/list ******************************************************
@@ -745,25 +761,6 @@ public class API_Stepdefinitions extends BaseTest {
     }
     // ********************************************************************************************************************
 
-    // **************************************** api/ticket/status-update/{id} *********************************************
-    @Given("The api user prepares a GET request containing {int} information to send to the api ticketedit endpoint.")
-    public void the_api_user_prepares_a_get_request_containing_information_to_send_to_the_api_ticketedit_endpoint(int status) {
-        requestBody = builder
-                .addParameterForMap("status", status)
-                .buildUsingMap();
-
-        System.out.println("PATCH Request Body : " + requestBody);
-    }
-
-    @Given("The api user verifies that status is {int}.")
-    public void the_api_user_verifies_that_status_is(int status) {
-        response
-                .then()
-                .assertThat()
-                .body("status", equalTo(status));
-    }
-    // ********************************************************************************************************************
-
     // ********************************************* api/ticket/edit/{id} *************************************************
     @Given("The api user prepares a PATCH request containing {int}, {string}, {string}, {string}, {string} and {string} information to send to the api ticketedit endpoint.")
     public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_ticketedit_endpoint(int department_id, String service, String priority, String subject, String description, String date) {
@@ -810,6 +807,79 @@ public class API_Stepdefinitions extends BaseTest {
         assertNull(map.get("note"));
         assertEquals(created_at, map.get("created_at"));
         assertEquals(updated_at, map.get("updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ****************************************** api/todo/edit/{id} ******************************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string}, {int} and {string} information to send to the api ticketedit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_ticketedit_endpoint(String title, String description, int user_id, String date) {
+        requestBody = builder
+                .addParameterForMap("title", title)
+                .addParameterForMap("description", description)
+                .addParameterForMap("user_id", user_id)
+                .addParameterForMap("date", date)
+                .buildUsingMap();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ****************************************** api/merchant-parcel/list ************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {int}, {string}, {string}, {string}, {int}, {int} and {int}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int merchant_id, int merchant_shop_id, String customer_name, String customer_phone, String customer_address, int category_id, int weight, int delivery_type_id) {
+        map = response.as(HashMap.class);
+
+        assertEquals(merchant_id, ((Map) (((List) (map.get("data"))).get(0))).get("merchant_id"));
+        assertEquals(merchant_shop_id, ((Map) (((List) (map.get("data"))).get(0))).get("merchant_shop_id"));
+        assertNull(((Map) (((List) (map.get("data"))).get(0))).get("pickup_address"));
+        assertNull(((Map) (((List) (map.get("data"))).get(0))).get("pickup_phone"));
+        assertEquals(customer_name, ((Map) (((List) (map.get("data"))).get(0))).get("customer_name"));
+        assertEquals(customer_phone, ((Map) (((List) (map.get("data"))).get(0))).get("customer_phone"));
+        assertEquals(customer_address, ((Map) (((List) (map.get("data"))).get(0))).get("customer_address"));
+        assertNull(((Map) (((List) (map.get("data"))).get(0))).get("invoice_no"));
+        assertEquals(category_id, ((Map) (((List) (map.get("data"))).get(0))).get("category_id"));
+        assertEquals(weight, ((Map) (((List) (map.get("data"))).get(0))).get("weight"));
+        assertEquals(delivery_type_id, ((Map) (((List) (map.get("data"))).get(0))).get("delivery_type_id"));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************* api/merchant-parcel/add ************************************************
+    @Given("The api user prepares a POST request containing {int}, {int}, {int}, {string}, {string} and {string} information to send to the api expressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_expressadd_endpoint(int merchant_shop_id, int category_id, int delivery_type_id, String customer_name, String customer_phone, String customer_address) {
+        requestBody = builder
+                .addParameterForJSONObject("merchant_shop_id", merchant_shop_id)
+                .addParameterForJSONObject("category_id", category_id)
+                .addParameterForJSONObject("delivery_type_id", delivery_type_id)
+                .addParameterForJSONObject("customer_name", customer_name)
+                .addParameterForJSONObject("customer_phone", customer_phone)
+                .addParameterForJSONObject("customer_address", customer_address)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************* api/merchant-shop/add ************************************************
+    @Given("The api user prepares a POST request containing {string}, {string}, {string} and {int} information to send to the api expressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_expressadd_endpoint(String name, String contact_no, String address, int status) {
+        requestBody = builder
+                .addParameterForMap("name", name)
+                .addParameterForMap("contact_no", contact_no)
+                .addParameterForMap("address", address)
+                .addParameterForMap("status", status)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a POST request containing {string} and {string} information to send to the api expressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_expressadd_endpoint(String name, String contact_no) {
+        requestBody = builder
+                .addParameterForMap("name", name)
+                .addParameterForMap("contact_no", contact_no)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
     }
     // ********************************************************************************************************************
 
