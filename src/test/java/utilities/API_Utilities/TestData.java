@@ -136,6 +136,18 @@ public class TestData {
         return requestBody;
     }
 
+    public HashMap todoRequestBody() {
+
+        HashMap<String, Object> requestBody = new HashMap<>();
+
+        requestBody.put("title", "Test");
+        requestBody.put("description", "Task5");
+        requestBody.put("user_id", 3);
+        requestBody.put("date", "2023-08-28");
+
+        return requestBody;
+    }
+
     public HashMap requestBody(String folder) {
 
         reqBody.put("hub", hubRequestBody());
@@ -148,6 +160,7 @@ public class TestData {
         reqBody.put("packaging", packagingRequestBody());
         reqBody.put("blog", blogRequestBody());
         reqBody.put("ticket", ticketRequestBody());
+        reqBody.put("todo", todoRequestBody());
 
         return reqBody.get(folder);
     }

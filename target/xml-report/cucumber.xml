@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="9.25">
-    <testcase classname="As an administrator (admin), I want to be able to access the detailed information of the ticket with the specified id number via the API connection." name="admin Validate that when a GET request is sent to the api/ticket/{id} endpoint with valid authorization" time="8.568">
-        <system-out><![CDATA[* The api user sets "api/ticket/4" path parameters..........................passed
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="10.576">
+    <testcase classname="As an administrator (admin), I want to be able to access the detailed information of the todo with the specified id number via the API connection." name="admin Verify that sending a GET request with valid authorization and the correct ID to api/todo/{id}" time="9.918">
+        <system-out><![CDATA[* The api user sets "api/todo/93" path parameters...........................passed
 * The api user sends a "GET" request and saves the returned response........passed
 * The api user verifies that the status code is 200.........................passed
-* The api user verifies that the data in the response body includes 4, 33, 3, "delivery", "high", "Missing Items in Shipment", "complaint from our customer", "2023-09-04", 0, "2023-09-04T14:36:06.000000Z" and "2024-09-17T12:29:12.000000Z"..passed
+* The api user verifies that the data in the response body includes 93, "", "qweqwe", 915, "2024-09-19", 2, "2024-09-10T00:31:14.000000Z" and "2024-09-12T10:23:02.000000Z"..passed
 ]]></system-out>
     </testcase>
 </testsuite>

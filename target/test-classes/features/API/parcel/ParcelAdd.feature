@@ -26,7 +26,7 @@ Feature: As an administrator (admin) I want to create a parcel record via API co
       | 6                | 1           | 1                | John Due      | 145879632147   | 318 WARREN ST, Brooklyn, NY 11206 |
 
 
-  Scenario: Inavlid Token Send a POST request to the api/parcel/add endpoint with invalid authorization and correct data,
+  Scenario: Invalid Token Send a POST request to the api/parcel/add endpoint with invalid authorization and correct data,
   verify the response status code is 401, and the message is 'Unauthenticated.'
 
     * The api user sets "api/parcel/add" path parameters.

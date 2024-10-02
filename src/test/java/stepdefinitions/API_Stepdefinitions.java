@@ -745,5 +745,73 @@ public class API_Stepdefinitions extends BaseTest {
     }
     // ********************************************************************************************************************
 
+    // **************************************** api/ticket/status-update/{id} *********************************************
+    @Given("The api user prepares a GET request containing {int} information to send to the api ticketedit endpoint.")
+    public void the_api_user_prepares_a_get_request_containing_information_to_send_to_the_api_ticketedit_endpoint(int status) {
+        requestBody = builder
+                .addParameterForMap("status", status)
+                .buildUsingMap();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+
+    @Given("The api user verifies that status is {int}.")
+    public void the_api_user_verifies_that_status_is(int status) {
+        response
+                .then()
+                .assertThat()
+                .body("status", equalTo(status));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************* api/ticket/edit/{id} *************************************************
+    @Given("The api user prepares a PATCH request containing {int}, {string}, {string}, {string}, {string} and {string} information to send to the api ticketedit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_ticketedit_endpoint(int department_id, String service, String priority, String subject, String description, String date) {
+        requestBody = builder
+                .addParameterForJSONObject("department_id", department_id)
+                .addParameterForJSONObject("service", service)
+                .addParameterForJSONObject("priority", priority)
+                .addParameterForJSONObject("subject", subject)
+                .addParameterForJSONObject("description", description)
+                .addParameterForJSONObject("date", date)
+                .buildUsingJSONObject();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************* api/todo/list *******************************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {string}, {string}, {int}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, String title, String description, int user_id, String date, int status, String created_at, String updated_at) {
+        repJP = response.jsonPath();
+
+        assertEquals(title, repJP.getString("[" + dataIndex + "].title"));
+        assertEquals(description, repJP.getString("[" + dataIndex + "].description"));
+        assertEquals(user_id, repJP.getInt("[" + dataIndex + "].user_id"));
+        assertEquals(date, repJP.getString("[" + dataIndex + "].date"));
+        assertEquals(status, repJP.getInt("[" + dataIndex + "].status"));
+        assertNull(repJP.get("[" + dataIndex + "].note"));
+        assertEquals(created_at, repJP.getString("[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************* api/todo/{id} *******************************************************
+    @Given("The api user verifies that the data in the response body includes {int}, {string}, {string}, {int}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_that_the_data_in_the_response_body_includes_and(int id, String title, String description, int user_id, String date, int status, String created_at, String updated_at) {
+        map = response.as(HashMap.class);
+
+        assertEquals(id, map.get("id"));
+        assertEquals(title, map.get("title"));
+        assertEquals(description, map.get("description"));
+        assertEquals(user_id, map.get("user_id"));
+        assertEquals(date, map.get("date"));
+        assertEquals(status, map.get("status"));
+        assertNull(map.get("note"));
+        assertEquals(created_at, map.get("created_at"));
+        assertEquals(updated_at, map.get("updated_at"));
+    }
+    // ********************************************************************************************************************
+
 
 }
