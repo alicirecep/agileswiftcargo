@@ -3,6 +3,7 @@ package stepdefinitions;
 import base.BaseTest;
 import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
+import org.json.JSONObject;
 import pojos.merchant.MerchantPojo;
 import pojos.packaging.PackagingPojo;
 import pojos.shop.ShopPojo;
@@ -883,5 +884,176 @@ public class API_Stepdefinitions extends BaseTest {
     }
     // ********************************************************************************************************************
 
+    // ******************************************* api/merchant-ticket/list ***********************************************
+    @Given("The api user verifies the information in the response body for the entry with the specified {int} index, including {int}, {string}, {string}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_body_for_the_entry_with_the_specified_index_including_and(int dataIndex, int user_id, String priority, String subject, String description, int status, String created_at, String updated_at) {
+        repJP = response.jsonPath();
 
+        assertEquals(user_id, repJP.getInt("data[" + dataIndex + "].user_id"));
+        assertNull(repJP.get("data[" + dataIndex + "].department_id"));
+        assertNull(repJP.get("data[" + dataIndex + "].service"));
+        assertEquals(priority, repJP.getString("data[" + dataIndex + "].priority"));
+        assertEquals(subject, repJP.getString("data[" + dataIndex + "].subject"));
+        assertEquals(description, repJP.getString("data[" + dataIndex + "].description"));
+        assertNull(repJP.get("data[" + dataIndex + "].date"));
+        assertNull(repJP.get("data[" + dataIndex + "].attached_file"));
+        assertEquals(status, repJP.getInt("data[" + dataIndex + "].status"));
+        assertEquals(created_at, repJP.getString("data[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("data[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************* api/merchant-ticket/add ************************************************
+    @Given("The api user prepares a POST request containing {string}, {string} and {string} information to send to the api ticketadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_ticketadd_endpoint(String subject, String description, String priority) {
+        requestBody = builder
+                .addParameterForMap("subject", subject)
+                .addParameterForMap("description", description)
+                .addParameterForMap("priority", priority)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a POST request containing {string} and {string} information to send to the api ticketadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_ticketadd_endpoint(String subject, String description) {
+        requestBody = builder
+                .addParameterForMap("subject", subject)
+                .addParameterForMap("description", description)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ************************************* api/merchant-pickuprequest/regular *******************************************
+    @Given("The api user verifies the information in the response for the entry with the specified {int} index, including {string}, {int}, {string}, {string}, {int}, {string}, {int}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_for_the_entry_with_the_specified_index_including_and(int dataIndex, String request_type, int merchant_id, String address, String note, int parcel_quantity, String cod_amount, int weight, int exchange, String created_at, String updated_at) {
+        repJP = response.jsonPath();
+
+        assertEquals(request_type, repJP.getString("data[" + dataIndex + "].request_type"));
+        assertEquals(merchant_id, repJP.getInt("data[" + dataIndex + "].merchant_id"));
+        assertEquals(address, repJP.getString("data[" + dataIndex + "].address"));
+        assertEquals(note, repJP.getString("data[" + dataIndex + "].note"));
+        assertEquals(parcel_quantity, repJP.getInt("data[" + dataIndex + "].parcel_quantity"));
+        assertNull(repJP.get("data[" + dataIndex + "].name"));
+        assertNull(repJP.get("data[" + dataIndex + "].phone"));
+        assertEquals(cod_amount, repJP.getString("data[" + dataIndex + "].cod_amount"));
+        assertNull(repJP.get("data[" + dataIndex + "].invoice"));
+        assertEquals(weight, repJP.getInt("data[" + dataIndex + "].weight"));
+        assertEquals(exchange, repJP.getInt("data[" + dataIndex + "].exchange"));
+        assertEquals(created_at, repJP.getString("data[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("data[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ************************************* api/merchant-pickuprequest/express *******************************************
+    @Given("The api user verifies the information in the response for the entry with the specified {int} index, including {string}, {int}, {string}, {int}, {string}, {string}, {int}, {string} and {string}.")
+    public void the_api_user_verifies_the_information_in_the_response_for_the_entry_with_the_specified_index_including_and(int dataIndex, String request_type, int merchant_id, String address, int parcel_quantity, String name, String phone, int exchange, String created_at, String updated_at) {
+        repJP = response.jsonPath();
+
+        assertEquals(request_type, repJP.getString("data[" + dataIndex + "].request_type"));
+        assertEquals(merchant_id, repJP.getInt("data[" + dataIndex + "].merchant_id"));
+        assertEquals(address, repJP.getString("data[" + dataIndex + "].address"));
+        assertNull(repJP.get("data[" + dataIndex + "].note"));
+        assertEquals(parcel_quantity, repJP.getInt("data[" + dataIndex + "].parcel_quantity"));
+        assertEquals(name, repJP.getString("data[" + dataIndex + "].name"));
+        assertEquals(phone, repJP.getString("data[" + dataIndex + "].phone"));
+        assertNull(repJP.get("data[" + dataIndex + "].cod_amount"));
+        assertNull(repJP.get("data[" + dataIndex + "].invoice"));
+        assertNull(repJP.get("data[" + dataIndex + "].weight"));
+        assertEquals(exchange, repJP.getInt("data[" + dataIndex + "].exchange"));
+        assertEquals(created_at, repJP.getString("data[" + dataIndex + "].created_at"));
+        assertEquals(updated_at, repJP.getString("data[" + dataIndex + "].updated_at"));
+    }
+    // ********************************************************************************************************************
+
+    // ********************************* api/merchant-pickuprequest/regular/add *******************************************
+    @Given("The api user prepares a POST request containing {string} and {int} information to send to the api pickuprequestregularadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_pickuprequestregularadd_endpoint(String note, int parcel_quantity) {
+        requestBody = builder
+                .addParameterForMap("note", note)
+                .addParameterForMap("parcel_quantity", parcel_quantity)
+                .buildUsingMap();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************* api/merchant-pickuprequest/express/add *******************************************
+    @Given("The api user prepares a POST request containing {string}, {string} and {string} information to send to the api pickuprequestexpressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_pickuprequestexpressadd_endpoint(String address, String name, String phone) {
+        requestBody = builder
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("phone", phone)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+
+    @Given("The api user prepares a POST request containing {string} and {string} information to send to the api pickuprequestexpressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_pickuprequestexpressadd_endpoint(String address, String name) {
+        requestBody = builder
+                .addParameterForJSONObject("address", address)
+                .addParameterForJSONObject("name", name)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
+
+    // ********************************************** api/merchant-profile ************************************************
+    @Given("The api user verifies the contents of the data {string}, {string}, {string}, {string} and {string} in the response body.")
+    public void the_api_user_verifies_the_contents_of_the_data_and_in_the_response_body(String name, String email, String mobile, String business_name, String address) {
+        response
+                .then()
+                .assertThat()
+                .body("profile.name", equalTo(name),
+                        "profile.email", equalTo(email),
+                        "profile.mobile", equalTo(mobile),
+                        "profile.business_name", equalTo(business_name),
+                        "profile.address", equalTo(address));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************** api/merchant/updateprofil *********************************************
+    @Given("The api user prepares a PATCH request containing {string}, {string}, {string}, {string} and {string} information to send to the api profiledit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_profiledit_endpoint(String name, String email, String mobile, String business_name, String address) {
+        requestBody = builder
+                .addParameterForJSONObject("name", name)
+                .addParameterForJSONObject("email", email)
+                .addParameterForJSONObject("mobile", mobile)
+                .addParameterForJSONObject("business_name", business_name)
+                .addParameterForJSONObject("address", address)
+                .buildUsingJSONObject();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+
+    @Given("The api user compares the data sent by making changes in the post body with the value received in the response body.")
+    public void the_api_user_compares_the_data_sent_by_making_changes_in_the_post_body_with_the_value_received_in_the_response_body() {
+        map = response.as(HashMap.class);
+
+        JSONObject jsonObject = new JSONObject(requestBody); // String'i JSONObject'e dönüştürdük
+
+        assertEquals(jsonObject.get("name"), ((Map) (map.get("Updated Profile"))).get("name"));
+        assertEquals(jsonObject.get("email"), ((Map) (map.get("Updated Profile"))).get("email"));
+        assertEquals(jsonObject.get("mobile"), ((Map) (map.get("Updated Profile"))).get("mobile"));
+        assertEquals(jsonObject.get("business_name"), ((Map) (map.get("Updated Profile"))).get("business_name"));
+        assertEquals(jsonObject.get("address"), ((Map) (map.get("Updated Profile"))).get("address"));
+    }
+    // ********************************************************************************************************************
+
+    // ******************************************* api/merchant/updatepassword ********************************************
+    @Given("The api user prepares a PATCH request containing {string} and {string} information to send to the api profiledit endpoint.")
+    public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_profiledit_endpoint(String old_password, String new_password) {
+        requestBody = builder
+                .addParameterForMap("old_password", old_password)
+                .addParameterForMap("new_password", new_password)
+                .buildUsingMap();
+
+        System.out.println("PATCH Request Body : " + requestBody);
+    }
+    // ********************************************************************************************************************
 }
