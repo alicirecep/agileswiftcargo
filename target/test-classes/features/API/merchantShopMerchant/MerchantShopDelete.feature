@@ -29,7 +29,7 @@ Feature: As a merchant, I want to be able to delete shop information with the sp
     * The api user verifies that the status code is 203.
     * The api user verifies that the "message" information in the response body is "Something went wrong.".
 
-  @US
+
   Scenario: Invalid Token Verify that when a DELETE request is sent to the api/merchant-shop/delete/{id} endpoint with
   invalid authorization, the response returns a status code of 401 and the response body contains the message "Unauthenticated."
 

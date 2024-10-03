@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="6.987">
-    <testcase classname="As a merchant, I want to be able to delete shop information with the specified id number via API connection." name="Invalid Token Verify that when a DELETE request is sent to the api/merchant-shop/delete/{id} endpoint with" time="6.296">
-        <system-out><![CDATA[* The api user sets "api/merchant-shop/delete/1042" path parameters.........passed
-* The api user sends a "DELETE" request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized..passed
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="10.31">
+    <testcase classname="As a merchant, I want to be able to add parcel via API connection." name="merchant When sending a POST request to the api/merchant-parcel/add endpoint with valid authorization" time="9.47">
+        <system-out><![CDATA[* The api user sets "api/merchant-parcel/add" path parameters...............passed
+* The api user prepares a POST request containing 1, 1, "Jane Due", "145879632147" and "318 WARREN ST, Brooklyn, NY 11206" information to send to the api expressadd endpoint..passed
+* The api user sends a "POST" request and saves the returned response.......passed
+* The api user verifies that the status code is 200.........................passed
+* The api user verifies that the "message" information in the response body is "Parcel is added"..passed
 ]]></system-out>
     </testcase>
 </testsuite>
