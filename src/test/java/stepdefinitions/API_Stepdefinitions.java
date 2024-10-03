@@ -858,6 +858,19 @@ public class API_Stepdefinitions extends BaseTest {
 
         System.out.println("POST Request Body : " + requestBody);
     }
+
+    @Given("The api user prepares a POST request containing {int}, {int}, {string}, {string} and {string} information to send to the api expressadd endpoint.")
+    public void the_api_user_prepares_a_post_request_containing_and_information_to_send_to_the_api_expressadd_endpoint(int category_id, int delivery_type_id, String customer_name, String customer_phone, String customer_address) {
+        requestBody = builder
+                .addParameterForJSONObject("category_id", category_id)
+                .addParameterForJSONObject("delivery_type_id", delivery_type_id)
+                .addParameterForJSONObject("customer_name", customer_name)
+                .addParameterForJSONObject("customer_phone", customer_phone)
+                .addParameterForJSONObject("customer_address", customer_address)
+                .buildUsingJSONObject();
+
+        System.out.println("POST Request Body : " + requestBody);
+    }
     // ********************************************************************************************************************
 
     // ********************************************* api/merchant-shop/add ************************************************
@@ -1049,9 +1062,9 @@ public class API_Stepdefinitions extends BaseTest {
     @Given("The api user prepares a PATCH request containing {string} and {string} information to send to the api profiledit endpoint.")
     public void the_api_user_prepares_a_patch_request_containing_and_information_to_send_to_the_api_profiledit_endpoint(String old_password, String new_password) {
         requestBody = builder
-                .addParameterForMap("old_password", old_password)
-                .addParameterForMap("new_password", new_password)
-                .buildUsingMap();
+                .addParameterForJSONObject("old_password", old_password)
+                .addParameterForJSONObject("new_password", new_password)
+                .buildUsingJSONObject();
 
         System.out.println("PATCH Request Body : " + requestBody);
     }
